@@ -14,13 +14,23 @@ export default function WeatherDisplay({ location, weather }) {
     const maxTemps = daily.temperature_2m_max;
     const minTemps = daily.temperature_2m_min;
 
+
+const hourlyTimes = weather.hourly.time.slice(0, 7).map(t => {
+    const date = new Date(t);
+    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+});
+
+const hourlyTemps = weather.hourly.temperature_2m.slice(0, 7);
+
+
+
     const style = {
         backgroundImage: `url(${todayBackground})`,
         backgroundSize: 'cover',
         height: '200px',
         width: '100%',
         borderRadius: '5px',
-        padding: '25px'
+        padding: '40px'
     }
 
     return (
@@ -30,7 +40,9 @@ export default function WeatherDisplay({ location, weather }) {
                 <div className="top-banner" style={style}>
                     <div className="name">
                         <h1>{location.name}, {location.country}</h1>
-                        {new Date().toDateString()}
+                        <p className='date'>
+                            {new Date().toDateString()}
+                        </p>
                     </div>
                     <div className="temp">
                         <h1 className='large'>{current.temperature_2m}°</h1>
@@ -59,6 +71,7 @@ export default function WeatherDisplay({ location, weather }) {
                     </div>
                 </div>
                 <div className="daily-weather">
+                    <h2>Daily Forecast</h2>
                     <div className="daily-update">
                         {
                             daysOfWeek.map((day, index) => {
@@ -80,6 +93,16 @@ export default function WeatherDisplay({ location, weather }) {
             </div>
 
             <div className="right-container">
+                <h2>Hourly Forecast</h2>
+                <div className="hourly-weather">
+                    {hourlyTimes.map((time, index) => (
+                        <div className="hour-item" key={index}>
+                            <p>{time}</p>
+                            <p>{hourlyTemps[index]}°</p>
+                        </div>
+                    ))}
+                </div>
+
             </div>
         </div>
     );

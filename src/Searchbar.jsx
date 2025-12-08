@@ -10,7 +10,6 @@ export default function Searchbar() {
     const [weatherData, setWeatherData] = useState(null);
 
 
-    console.log(weatherData)
 
 async function fetchWeather(location) {
     try {
