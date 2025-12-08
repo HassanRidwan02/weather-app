@@ -87,7 +87,8 @@ body {
 
 .search-category{
     display: flex;
-    width: 500px;
+    flex-direction: column;
+    width: 350px;
     margin: auto;
     position: relative;
 }
@@ -97,7 +98,6 @@ body {
     align-items: center;
     background-color: hsl(243, 23%, 24%);
     padding: 10px;
-    margin-right: 20px;
     border-radius: 5px;
 }
 
@@ -108,7 +108,7 @@ body {
     color: #fff;
     margin-left: 5px;
     font-family: "Hanken Grotesk", sans-serif;
-    width: 300px;
+    width: 280px;
 }
 
 .search input:focus{
@@ -117,32 +117,33 @@ body {
 
 .search-category button{
     font-size: 1.1rem;
-    width: 500px;
-    /* height: 40px; */
+    width: 100%;
+    padding: 10px;
     border: none;
     border-radius: 5px;
     color: #fff;
     background-color: hsl(233, 67%, 56%);
-
+    margin-top: 10px;
 }
 
 .suggestions {
     background-color: hsl(243, 23%, 24%);
-    width: 345px;
-    position: absolute;
-    top: 130px;
-    left: 605px;
+    width: 100%;
+    position: relative;
     border-radius: 5px;
     padding: 10px;
     color: #fff;
+    max-height: 300px;
+    overflow-y: auto;
+    margin-top: 5px;
 }
 
 .suggestions p{
-    padding: 5px ;
+    padding: 8px 5px;
+    cursor: pointer;
 }
 
 .suggestions p:hover{
-    /* padding: 10px; */
     background-color: hsl(243, 23%, 30%);
     border-radius: 5px;
 }

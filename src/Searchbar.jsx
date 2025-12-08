@@ -107,24 +107,23 @@ async function fetchData(q) {
                         onChange={e => setQuery(e.target.value)}
                     />
                 </div>
-                <button onClick={() => fetchData(query)} >Search</button>  
+                <button onClick={() => fetchData(query)} >Search</button>
+                {query.trim() !== '' && (
+                    <div className="suggestions">
+                        {results.map((result, index) => (
+                            <p 
+                                key={index}
+                                onClick={() => handleSelectLocation(result)}
+                                style={{ cursor: 'pointer' }}
+                            >
+                                {result.name}
+                                {result.admin1 && `, ${result.admin1}`}
+                                {result.country && `, ${result.country}`}
+                            </p>
+                        ))}
+                    </div>
+                )}
             </div>
-
-           {query.trim() !== '' && (
-                <div className="suggestions">
-                    {results.map((result, index) => (
-                        <p 
-                            key={index}
-                            onClick={() => handleSelectLocation(result)}
-                            style={{ cursor: 'pointer' }}
-                        >
-                            {result.name}
-                            {result.admin1 && `, ${result.admin1}`}
-                            {result.country && `, ${result.country}`}
-                        </p>
-                    ))}
-                </div>
-            )}
 
             <WeatherDisplay 
                 location={selectedLocation}
