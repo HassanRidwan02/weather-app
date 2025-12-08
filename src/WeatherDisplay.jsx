@@ -1,5 +1,86 @@
-export default function WeatherDisplay (){
-    return(
-        <h1>hi  </h1>
-    )
+import todayBackground from './assets/bg-today-large.svg'
+
+export default function WeatherDisplay({ location, weather }) {
+    if (!location || !weather) return null; // don’t render until selected
+
+    const current = weather.current;
+    const daily = weather.daily;
+
+    const daysOfWeek = daily.time.map(dateString => {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-US', { weekday: 'short' });
+    });
+
+    const maxTemps = daily.temperature_2m_max;
+    const minTemps = daily.temperature_2m_min;
+
+    const style = {
+        backgroundImage: `url(${todayBackground})`,
+        backgroundSize: 'cover',
+        height: '200px',
+        width: '100%',
+        borderRadius: '5px',
+        padding: '25px'
+    }
+
+    return (
+        <div className="weather-container">
+            <div className="left-container">
+                
+                <div className="top-banner" style={style}>
+                    <div className="name">
+                        <h1>{location.name}, {location.country}</h1>
+                        {new Date().toDateString()}
+                    </div>
+                    <div className="temp">
+                        <h1 className='large'>{current.temperature_2m}°</h1>
+                    </div>
+                </div>
+
+                <div className="weather-extra">
+                    <div className='child'>
+                        <h2>Feels like</h2>
+                        <p>{current.apparent_temperature}°</p>
+                    </div>
+
+                    <div className='child'>
+                        <h2>Humidity</h2>
+                        <p>{current.relative_humidity_2m}%</p>
+                    </div>
+
+                    <div className='child'>
+                        <h2>Wind</h2>
+                        <p>{current.wind_speed_10m} km/h</p>
+                    </div>
+
+                    <div className='child'>
+                        <h2>Precipitation</h2>
+                        <p>{current.precipitation} mm</p>
+                    </div>
+                </div>
+                <div className="daily-weather">
+                    <div className="daily-update">
+                        {
+                            daysOfWeek.map((day, index) => {
+                                return (
+                                    <div className="daily-item" key={index}>
+                                        <div className="top">
+                                            <p>{day}</p>
+                                        </div>
+                                        <div className="bottom">
+                                            <p>{maxTemps[index]}°</p>
+                                            <p>{minTemps[index]}°</p>
+                                        </div>
+                                    </div>
+                                )
+                            })
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div className="right-container">
+            </div>
+        </div>
+    );
 }

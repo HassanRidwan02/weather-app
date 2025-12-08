@@ -10,6 +10,8 @@ export default function Searchbar() {
     const [weatherData, setWeatherData] = useState(null);
 
 
+    console.log(weatherData)
+
 async function fetchWeather(location) {
     try {
         const response = await fetch(
@@ -34,7 +36,6 @@ function handleSelectLocation(location) {
     fetchWeather(location);
     setResults([]); // Clear suggestions
     setQuery(''); // Clear search input
-    console.log(weatherData)
 }
 
 // async function fetchData(q) {
@@ -110,19 +111,21 @@ async function fetchData(q) {
                 <button onClick={() => fetchData(query)} >Search</button>  
             </div>
 
-           <div className="suggestions">
-                {results.map((result, index) => (
-                    <p 
-                        key={index}
-                        onClick={() => handleSelectLocation(result)}
-                        style={{ cursor: 'pointer' }}
-                    >
-                        {result.name}
-                        {result.admin1 && `, ${result.admin1}`}
-                        {result.country && `, ${result.country}`}
-                    </p>
-                ))}
-            </div>
+           {query.trim() !== '' && (
+                <div className="suggestions">
+                    {results.map((result, index) => (
+                        <p 
+                            key={index}
+                            onClick={() => handleSelectLocation(result)}
+                            style={{ cursor: 'pointer' }}
+                        >
+                            {result.name}
+                            {result.admin1 && `, ${result.admin1}`}
+                            {result.country && `, ${result.country}`}
+                        </p>
+                    ))}
+                </div>
+            )}
 
             <WeatherDisplay 
                 location={selectedLocation}
